@@ -83,3 +83,15 @@ export interface EC2Instance {
     description: string;
   }[];
 }
+
+export interface Commit {
+  hash: string;
+  author: string;
+  email: string;
+  date: string;
+  message: string;
+  additions: number;
+  deletions: number;
+  files_changed: number;
+  branch: string;
+}

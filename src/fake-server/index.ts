@@ -3,3 +3,4 @@
 export { fetchDistributions, fetchDistributionFilteringOptions } from './distributions';
 export { fetchContentOrigins } from './content-origins';
 export { GetResources, GetTagKeys, GetTagValues } from './tags';
+export { fetchCommits } from './commits';

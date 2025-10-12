@@ -4,6 +4,7 @@ import { PropertyFilterOption, PropertyFilterProperty, PropertyFilterQuery } fro
 
 import { fetchContentOrigins } from './content-origins';
 import { GetResources, GetTagKeys, GetTagValues } from './tags';
+import { fetchCommits } from './commits';
 
 // Types for distribution.json and content-origins.json mocks
 export interface Distribution {
@@ -43,6 +44,9 @@ type GetResourcesReturn = ReturnType<typeof GetResources>;
 type GetTagKeysReturn = ReturnType<typeof GetTagKeys>;
 
 type GetTagValuesReturn = ReturnType<typeof GetTagValues>;
+
+type FetchCommitsParams = Parameters<typeof fetchCommits>[0];
+type FetchCommitsReturn = ReturnType<typeof fetchCommits>;
 
 export interface FetchDistributionsParams {
   filteringText?: string;
@@ -84,6 +88,7 @@ declare global {
         params: FetchDistributionFilteringOptionsParams,
         callback: (response: FetchDistributionFilteringOptionsResponse) => void,
       ) => void;
+      fetchCommits: (params: FetchCommitsParams) => FetchCommitsReturn;
     };
   }
 }
