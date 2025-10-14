@@ -11,6 +11,7 @@ import Badge from '@cloudscape-design/components/badge';
 import Button from '@cloudscape-design/components/button';
 import SpaceBetween from '@cloudscape-design/components/space-between';
 import TextFilter from '@cloudscape-design/components/text-filter';
+import PropertyFilter, { PropertyFilterProps } from '@cloudscape-design/components/property-filter';
 import Pagination from '@cloudscape-design/components/pagination';
 import Tabs from '@cloudscape-design/components/tabs';
 import Container from '@cloudscape-design/components/container';
