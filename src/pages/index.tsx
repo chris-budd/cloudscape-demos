@@ -243,7 +243,7 @@ export default function Home() {
                     id: 'actions',
                     content: item => (
                       <Button href={item.route} iconAlign="right" iconName="external" variant="primary">
-                        Open demo
+                        Open it
                       </Button>
                     ),
                   },
