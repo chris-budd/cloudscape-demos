@@ -176,11 +176,55 @@ export default function Home() {
   const [filterText, setFilterText] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [currentPageIndex, setCurrentPageIndex] = useState(1);
+  const [query, setQuery] = useState<PropertyFilterProps.Query>({
+    tokens: [],
+    operation: 'and',
+  });
   const itemsPerPage = 12;
 
-  // Filter demos based on filter text and selected category
+  // Apply property filter logic
+  const applyPropertyFilter = (demo: Demo, tokens: PropertyFilterProps.Token[]): boolean => {
+    if (tokens.length === 0) return true;
+
+    return tokens.every(token => {
+      const propertyKey = token.propertyKey;
+      const operator = token.operator;
+      const value = String(token.value).toLowerCase();
+
+      if (!propertyKey) {
+        // Free text search across all fields
+        return (
+          demo.title.toLowerCase().includes(value) ||
+          demo.description.toLowerCase().includes(value) ||
+          demo.category.toLowerCase().includes(value)
+        );
+      }
+
+      const demoValue = String(demo[propertyKey as keyof Demo]).toLowerCase();
+
+      switch (operator) {
+        case ':':
+          return demoValue.includes(value);
+        case '!:':
+          return !demoValue.includes(value);
+        case '=':
+          return demoValue === value;
+        case '!=':
+          return demoValue !== value;
+        case '^':
+          return demoValue.startsWith(value);
+        case '!^':
+          return !demoValue.startsWith(value);
+        default:
+          return true;
+      }
+    });
+  };
+
+  // Filter demos based on property filter, text filter, and selected category
   const filteredDemos = demos.filter(
     demo =>
+      applyPropertyFilter(demo, query.tokens) &&
       (demo.title.toLowerCase().includes(filterText.toLowerCase()) ||
         demo.description.toLowerCase().includes(filterText.toLowerCase())) &&
       (activeCategory === 'All' || demo.category === activeCategory),
@@ -297,15 +341,17 @@ export default function Home() {
                 </Box>
               }
               filter={
-                <TextFilter
-                  filteringText={filterText}
-                  filteringPlaceholder="Find demos"
-                  filteringAriaLabel="Filter demos"
-                  countText={`${filteredDemos.length} matches`}
+                <PropertyFilter
+                  query={query}
                   onChange={({ detail }) => {
-                    setFilterText(detail.filteringText);
+                    setQuery(detail);
                     setCurrentPageIndex(1);
                   }}
+                  filteringProperties={propertyFilterProperties}
+                  filteringOptions={propertyFilterOptions}
+                  i18nStrings={propertyFilterI18nStrings}
+                  filteringPlaceholder="Filter demos by property"
+                  countText={`${filteredDemos.length} matches`}
                 />
               }
               pagination={
