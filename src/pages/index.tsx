@@ -190,7 +190,6 @@ export default function Home() {
                 Browse {demos.length} examples of Cloudscape Design System patterns and components. Each demo shows best
                 practices for cloud application experiences.
               </Box>
-
             </Container>
 
             <Tabs
