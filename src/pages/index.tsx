@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import AppLayout from '@cloudscape-design/components/app-layout';
 import ContentLayout from '@cloudscape-design/components/content-layout';
 import Header from '@cloudscape-design/components/header';
-import Grid from '@cloudscape-design/components/grid';
 import Box from '@cloudscape-design/components/box';
 import Cards from '@cloudscape-design/components/cards';
 import Badge from '@cloudscape-design/components/badge';
@@ -192,18 +191,6 @@ export default function Home() {
                 practices for cloud application experiences.
               </Box>
 
-              <Grid gridDefinition={[{ colspan: { default: 12, xs: 12, s: 12, m: 8, l: 8, xl: 8 } }]}>
-                <TextFilter
-                  filteringText={filterText}
-                  filteringPlaceholder="Find demos"
-                  filteringAriaLabel="Filter demos"
-                  countText={`${filteredDemos.length} matches`}
-                  onChange={({ detail }) => {
-                    setFilterText(detail.filteringText);
-                    setCurrentPageIndex(1);
-                  }}
-                />
-              </Grid>
             </Container>
 
             <Tabs
@@ -269,6 +256,18 @@ export default function Home() {
                   </Box>
                   <Box variant="p">Try changing the filters or search term</Box>
                 </Box>
+              }
+              filter={
+                <TextFilter
+                  filteringText={filterText}
+                  filteringPlaceholder="Find demos"
+                  filteringAriaLabel="Filter demos"
+                  countText={`${filteredDemos.length} matches`}
+                  onChange={({ detail }) => {
+                    setFilterText(detail.filteringText);
+                    setCurrentPageIndex(1);
+                  }}
+                />
               }
               pagination={
                 <Pagination
