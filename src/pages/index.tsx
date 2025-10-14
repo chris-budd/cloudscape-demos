@@ -133,6 +133,45 @@ const demos = [
 // Get unique categories
 const categories = [...new Set(demos.map(demo => demo.category))];
 
+type Demo = (typeof demos)[number];
+
+const propertyFilterProperties: ReadonlyArray<PropertyFilterProps.FilteringProperty> = [
+  {
+    key: 'title',
+    propertyLabel: 'Title',
+    groupValuesLabel: 'Title values',
+    operators: [':', '!:', '=', '!=', '^', '!^'],
+  },
+  {
+    key: 'description',
+    propertyLabel: 'Description',
+    groupValuesLabel: 'Description values',
+    operators: [':', '!:', '=', '!=', '^', '!^'],
+  },
+  {
+    key: 'category',
+    propertyLabel: 'Category',
+    groupValuesLabel: 'Category values',
+    operators: ['=', '!='],
+  },
+];
+
+const propertyFilterOptions: ReadonlyArray<PropertyFilterProps.FilteringOption> = categories.map(category => ({
+  propertyKey: 'category',
+  value: category,
+}));
+
+const propertyFilterI18nStrings: PropertyFilterProps.I18nStrings = {
+  filteringAriaLabel: 'Filter demos by property',
+  filteringPlaceholder: 'Filter by property',
+  groupPropertiesText: 'Properties',
+  groupValuesText: 'Values',
+  operatorsText: 'Operators',
+  operationAndText: 'and',
+  operationOrText: 'or',
+  clearFiltersText: 'Clear filters',
+};
+
 export default function Home() {
   const [filterText, setFilterText] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
